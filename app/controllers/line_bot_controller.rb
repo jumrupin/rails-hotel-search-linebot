@@ -66,7 +66,7 @@ private
       bubbles.push set_bubble(hotel[0]['hotelBasicInfo'])
     end
     {
-      type: 'carousel'
+      type: 'carousel',
       contents: bubbles
     }
   end
