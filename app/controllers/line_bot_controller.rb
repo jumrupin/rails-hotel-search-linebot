@@ -22,7 +22,7 @@ class LineBotController < ApplicationController
   end
 
 
-  private
+private
  
   def client
     @client ||= Line::Bot::Client.new { |config|
@@ -77,6 +77,20 @@ class LineBotController < ApplicationController
       hero: set_hero(hotel),
       body: set_body(hotel),
       footer: set_footer(hotel)
+    }
+  end
+
+  def set_hero(hotel)
+    {
+      type: 'image',
+      url: hotel['hotelImageUrl'],
+      size: 'full',
+      aspectRatio: '20:13',
+      aspectMode: 'cover',
+      action: {
+        type: 'uri',
+        uri:  hotel['hotelInformationUrl']
+      }
     }
   end
 
