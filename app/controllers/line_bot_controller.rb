@@ -1,5 +1,6 @@
 class LineBotController < ApplicationController
   protect_from_forgery except: [:collback]
+
   def callback
     body = request.body.read
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -19,6 +20,7 @@ class LineBotController < ApplicationController
     end
      head :ok
   end
+
 
   private
  
@@ -56,5 +58,16 @@ class LineBotController < ApplicationController
         contents: set_carousel(response['hotels'])
       }
     end
+  end
+
+  def set_carousel(hotels)
+    bubbles = []
+    hotels.each do |hotel|
+      bubbles.push set_bubble(hotel[0]['hotelBasicInfo''])
+    end
+    {
+      type: 'carousel'
+      contents: bubbles
+    }
   end
 end
